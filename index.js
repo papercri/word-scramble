@@ -17,51 +17,43 @@
 
 
 
-let words = ["barcelona", "tarragona", "valencia", "girona", "puigcerda", "pamplona", "castelldefels"]
+let words = ["barcelona", "tarragona", "valencia", "girona", "puigcerda", "pamplona", "castelldefels"];
+let correctdWord = null;
+let shuffedWord = null;
+let newWord = null;
 
-const wordText = document.querySelector("p.word");
-const inputField = document.querySelector("input");
-const refreshBtn = document.querySelector("button.refresh-word");
-const checkBtn = document.querySelector("button.check-word");
+const refreshButt = document.getElementById("refreshButt");
+const checkWord = document.getElementById("checkWord");
 
-refreshBtn.addEventListener("click", initGame);
-checkBtn.addEventListener("click", checkWord);
+const wordMixed = document.getElementById("wordMixed");
+const inputWord = document.getElementById("inputWord");
 
 
-let randomWord;
+refreshButt.addEventListener("click", makeWords);
+checkWord.addEventListener("click", checkWordFn);
 
-initGame();
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+}   
 
-function initGame() {
-    //Choose random word
-    randomWord = words[Math.floor(Math.random() * words.length)];
 
-    //mix it! first split its letters into an array
-    let wordArray = randomWord.split("");
-    
-    //then suffle array
-    for (let i = wordArray.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [wordArray[i], wordArray[j]] = [wordArray[j], wordArray[i]];
+function makeWords(event){
+    event.preventDefault();
+    for (let word of words){
+        let correctWord = words[Math.floor(Math.random() * words.length)];
+        let wordsArray = correctWord.split("");
+        wordsArrayShuff = [...wordsArray];
+        shuffle(wordsArrayShuff);
+        shuffedWord = wordsArrayShuff.join("");
+        correctdWord = wordsArray.join("");
     }
-
-    //join the shuffled array again to create the scrabbled word
-    wordText.innerText = wordArray.join("");
-
-    //reset input
-    inputField.value = "";
+    wordMixed.textContent = shuffedWord;
 }
-
-
-function checkWord() {
-    //get user input
-    let userWord = inputField.value.toLowerCase();
-
-    //if no match, return
-    if(userWord !== randomWord) return alert(`Oops! ${userWord} is not a correct word`);
-
-    //else, say congrats and reset
-    alert(`Congrats! ${randomWord.toUpperCase()} is the correct word`);
-    initGame();
+function checkWordFn(event){
+    newWord = inputWord.value;
+    if(newWord===correctdWord){
+        console.log("bien");
+    }else{
+        console.log("mal");
+    }
 }
-
