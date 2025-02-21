@@ -2,6 +2,8 @@
 
 This repository contains a simple word scramble game built with HTML, CSS, and JavaScript. The objective of the game is to unscramble letters to form valid words.
 
+**Link:** http://word-scramble-gamma.vercel.app
+
 ## How to Play
 
 1. **Start the Game**: Open the `index.html` file in your web browser.
